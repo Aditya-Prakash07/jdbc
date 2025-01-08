@@ -126,3 +126,127 @@ Type 4 is the most widely used JDBC driver today because of its high performance
 
 
 
+
+
+
+
+In JDBC (Java Database Connectivity), the main purpose is to enable Java applications to interact with databases. JDBC provides different types of statements that allow us to execute SQL queries and update the database. These statements are used to send SQL commands to the database from a Java program.
+
+Here are the different types of statements in JDBC, explained in detail:
+
+1. Statement
+Overview: The Statement interface is used to execute a simple SQL query or update. It does not take any parameters and is used for general-purpose SQL execution.
+Usage: It is typically used for SQL queries that are static, i.e., queries that do not change or are not reused frequently.
+Common Methods:
+executeQuery(String sql): Executes a SQL query and returns a ResultSet object.
+executeUpdate(String sql): Executes a SQL update (INSERT, UPDATE, DELETE) and returns the number of rows affected.
+execute(String sql): Executes a SQL statement and returns a boolean value indicating whether the result is a ResultSet or an update count.
+Example:
+
+Statement stmt = connection.createStatement();
+String query = "SELECT * FROM employees";
+ResultSet rs = stmt.executeQuery(query);
+while (rs.next()) {
+    System.out.println(rs.getString("name"));
+}
+2. PreparedStatement
+Overview: The PreparedStatement interface extends the Statement interface and is used to execute precompiled SQL queries. It is often used for dynamic SQL execution (e.g., with variable parameters), improving performance by reusing precompiled statements and preventing SQL injection attacks.
+Usage: It is commonly used when executing queries that involve parameters, like SELECT queries with WHERE conditions or INSERT, UPDATE, DELETE queries that involve dynamic values.
+Common Methods:
+setInt(int parameterIndex, int value): Sets an integer value at the given parameter index.
+setString(int parameterIndex, String value): Sets a string value at the given parameter index.
+setDouble(int parameterIndex, double value): Sets a double value at the given parameter index.
+executeQuery(): Executes a SQL SELECT statement.
+executeUpdate(): Executes SQL INSERT, UPDATE, DELETE statements.
+Example:
+
+String query = "SELECT * FROM employees WHERE id = ?";
+PreparedStatement pstmt = connection.prepareStatement(query);
+pstmt.setInt(1, 101);  // Set the value of the first parameter
+ResultSet rs = pstmt.executeQuery();
+while (rs.next()) {
+    System.out.println(rs.getString("name"));
+}
+3. CallableStatement
+Overview: The CallableStatement interface is used to execute SQL stored procedures in a database. It extends the PreparedStatement interface and provides methods for handling stored procedures that may have input/output parameters.
+Usage: It is used when you need to execute stored procedures or functions that exist in the database.
+Common Methods:
+setInt(int parameterIndex, int value): Sets an integer value for input parameters.
+registerOutParameter(int parameterIndex, int sqlType): Registers an output parameter for a stored procedure.
+execute(): Executes the stored procedure.
+getInt(int parameterIndex): Retrieves the output value of the specified parameter.
+Example:
+
+String storedProc = "{call getEmployeeDetails(?, ?)}";
+CallableStatement cstmt = connection.prepareCall(storedProc);
+cstmt.setInt(1, 101);  // Input parameter
+cstmt.registerOutParameter(2, Types.VARCHAR);  // Output parameter
+cstmt.execute();
+String name = cstmt.getString(2);  // Retrieve output parameter
+System.out.println(name);
+4. Batch Statements
+Overview: JDBC allows you to execute multiple SQL statements in a batch. This helps reduce the number of database round-trips, improving performance when dealing with multiple similar queries, such as bulk inserts or updates.
+Usage: It is useful for executing a series of similar SQL statements (like inserts, updates) without having to send each one individually to the database.
+Common Methods:
+addBatch(): Adds a SQL statement to the batch.
+executeBatch(): Executes all the SQL statements in the batch.
+Example:
+
+String query = "INSERT INTO employees (id, name, department) VALUES (?, ?, ?)";
+PreparedStatement pstmt = connection.prepareStatement(query);
+pstmt.setInt(1, 101);
+pstmt.setString(2, "John");
+pstmt.setString(3, "HR");
+pstmt.addBatch();
+
+pstmt.setInt(1, 102);
+pstmt.setString(2, "Jane");
+pstmt.setString(3, "IT");
+pstmt.addBatch();
+
+int[] updateCounts = pstmt.executeBatch();
+System.out.println("Batch executed successfully!");
+5. Transaction Statements
+Overview: JDBC allows you to manage transactions using commit() and rollback(). Transactions are important for ensuring that a group of operations are executed together as a single unit of work, which can either be committed or rolled back depending on whether all operations are successful.
+Usage: Used for maintaining data consistency and integrity, especially when performing multiple related updates (like transferring funds between accounts).
+Common Methods:
+setAutoCommit(false): Disables auto-commit mode (default is true).
+commit(): Commits the current transaction.
+rollback(): Rolls back the current transaction.
+Example:
+
+connection.setAutoCommit(false);  // Start a transaction
+
+Statement stmt = connection.createStatement();
+stmt.executeUpdate("UPDATE accounts SET balance = balance - 100 WHERE id = 1");
+stmt.executeUpdate("UPDATE accounts SET balance = balance + 100 WHERE id = 2");
+
+connection.commit();  // Commit the transaction
+Summary of JDBC Statement Types:
+Statement: For executing simple SQL queries (without parameters).
+PreparedStatement: For executing precompiled SQL queries with input parameters.
+CallableStatement: For executing stored procedures and functions.
+Batch Statement: For executing multiple SQL queries at once, improving performance.
+Transaction Statements: For managing database transactions to ensure atomicity and consistency.
+These statement types allow Java applications to interact efficiently with relational databases by providing different ways to handle queries, updates, stored procedures, and transactions. Each type serves specific use cases and helps in writing optimized, secure, and reliable database operations in JDBC.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
