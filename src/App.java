@@ -17,7 +17,7 @@ public class App {
         String url = "jdbc:mysql://127.0.0.1:3306/aditya";
         String username = "root";
         String pass = "admin123";
-        String query = "SELECT * FROM aditya.student WHERE rollno = 2";
+        String query = "SELECT * FROM aditya.student WHERE rollno = 3";
         Class.forName("com.mysql.cj.jdbc.Driver");
         // Connection is an interface in java and so we can not make objects of it. So getConnection() a static method ( it returns the instance of connection) of class DriverManager is used which takes three parameters
         Connection con = DriverManager.getConnection(url, username, pass);

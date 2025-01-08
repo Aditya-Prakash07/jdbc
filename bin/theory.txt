@@ -126,5 +126,3 @@ Type 4 is the most widely used JDBC driver today because of its high performance
 
 
 
-
-
