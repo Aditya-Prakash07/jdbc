@@ -241,7 +241,21 @@ These statement types allow Java applications to interact efficiently with relat
 
 
 
+DAO Layer in JDBC
+The DAO (Data Access Object) layer is a design pattern used in Java to provide an abstract interface to access and manage data in a database. By using a DAO layer, the data access logic is separated from the business logic, making the application more modular, reusable, and easier to maintain.
 
+Key Concepts of DAO Layer
+Abstraction: The DAO layer abstracts the database access logic. Clients interact with the DAO interface rather than directly with JDBC code.
+Separation of Concerns: Keeps database operations (like CRUD) separate from business logic.
+Reusability: DAOs can be reused across multiple components in the application.
+Maintainability: Centralizes data access logic, making changes easier if the database schema or queries change.
+Structure of DAO Layer
+The DAO layer typically consists of:
+
+DAO Interface: Defines the operations (e.g., create, read, update, delete).
+DAO Implementation: Provides concrete implementations of the defined methods using JDBC.
+Entity Classes: Represent the database tables as Java objects (also known as POJOs).
+Database Connection Utility: Provides a way to establish and manage connections to the database.
 
 
 
