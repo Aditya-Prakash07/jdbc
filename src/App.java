@@ -8,7 +8,7 @@
 // 6. process the result
 // 7. close
 
-
+// progress 001
 import java.sql.*;
 import java.util.Scanner;
 public class App {
