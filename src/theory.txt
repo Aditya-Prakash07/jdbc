@@ -109,10 +109,10 @@ Example of URL:
 jdbc:mysql://localhost:3306/mydatabase
 Summary Comparison of JDBC Driver Types:
         Driver Type	        Communication	        Platform Dependency	        Performance     Usage
-Type 1: JDBC-ODBC Bridge	JDBC → ODBC → DB	    Platform-dependent	        Low	            Legacy systems, ODBC-compatible DBs
-Type 2: Native-API	        JDBC → Native DB API	Platform-dependent	        Medium	        Database-specific APIs (Oracle, DB2)
-Type 3: Network Protocol	JDBC → Middleware → DB	Platform-independent	    Medium	        Enterprise, Multiple DBs
-Type 4: Thin Driver	        JDBC → DB (direct)	    Platform-independent	    High	        Most modern use cases, preferred for Java applications
+Type 1: JDBC-ODBC Bridge	JDBC → ODBC → DB	Platform-dependent	        Low	        Legacy systems, ODBC-compatible DBs
+Type 2: Native-API	        JDBC → Native DB API	Platform-dependent	        Medium	        Database-specific APIs (Oracle,DB2)
+Type 3: Network Protocol	JDBC → Middleware → DB	Platform-independent	        Medium	        Enterprise, Multiple DBs
+Type 4: Thin Driver	        JDBC → DB (direct)	Platform-independent	        High	        Most modern use cases, preferred for Java applications
 Conclusion:
 Type 1 and Type 2 are largely outdated due to platform dependence, and their use is limited.
 Type 3 is useful in enterprise environments that require connecting to multiple types of databases through a single middleware.
