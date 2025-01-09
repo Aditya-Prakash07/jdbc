@@ -124,42 +124,80 @@
 
 // insert values in the database (USING PREPARED STATEMENT)
 
-import java.sql.*;
-import java.util.Scanner;
-public class App {
+// import java.sql.*;
+// import java.util.Scanner;
+// public class App {
 
-    public static void main(String[] args) throws Exception{
-        Scanner sc = new Scanner(System.in);
+//     public static void main(String[] args) throws Exception{
+//         Scanner sc = new Scanner(System.in);
 
 
-        String url = "jdbc:mysql://127.0.0.1:3306/aditya";
-        String username = "root";
-        String pass = "admin123";
-        String name = "BAHU BHAIYA";
-        String query = "INSERT INTO aditya.student (name) VALUES (?)";
+//         String url = "jdbc:mysql://127.0.0.1:3306/aditya";
+//         String username = "root";
+//         String pass = "admin123";
+//         String name = "BAHU BHAIYA";
+//         String query = "INSERT INTO aditya.student (name) VALUES (?)";
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
+//         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        Connection con = DriverManager.getConnection(url, username, pass);
+//         Connection con = DriverManager.getConnection(url, username, pass);
 
-        PreparedStatement st = con.prepareStatement(query); // THE QUERY IS FIXED BUT THE VALUE IS CHANGING so using PreparedStatement
-        st.setString(1, name);
+//         PreparedStatement st = con.prepareStatement(query); // THE QUERY IS FIXED BUT THE VALUE IS CHANGING so using PreparedStatement
+//         st.setString(1, name);
 
-        // st.executeQuery(query) gives the data in table structure and the ResultSet has the power to store the data 
-      //  ResultSet rs = st.executeQuery(query); // whenever we interact with the database and we need to fetch data from the database we using executeQuery method . (DQL ----> data query language)
+//         // st.executeQuery(query) gives the data in table structure and the ResultSet has the power to store the data 
+//       //  ResultSet rs = st.executeQuery(query); // whenever we interact with the database and we need to fetch data from the database we using executeQuery method . (DQL ----> data query language)
 
        
 
-        int count = st.executeUpdate(); // we can also write update , delete and insert query over here things to study on your own
+//         int count = st.executeUpdate(); // we can also write update , delete and insert query over here things to study on your own
 
-        System.out.println(count + " row/s affected");
+//         System.out.println(count + " row/s affected");
 
 
-        sc.close();
-        st.close();
-        con.close();
-    }
-}
+//         sc.close();
+//         st.close();
+//         con.close();
+//     }
+// }
+
+
+
+
 
 
 //DAO(data access object ) it is a designed layer it is always prefferd to write your data base related stuffs inside the dao layer only
+
+import java.sql.DriverManager;
+
+class Pqr{
+    //Static Block
+    static{
+        System.out.println("Inside Static Block");
+    }
+    // Instance Block
+    {
+        System.out.println("Inside Instance Block");
+    }
+}
+
+public class App {
+
+    public static void main(String[] args) throws Exception{
+       // Pqr pqr = new Pqr(); // whenever we create an object so before creating the object it will first load the class (static method will be called), while we are creating the object it will call the instance block .
+        //what if we don't want to create the object but still i want to call the static block in this scenerio we can just load the class using the Class.forName(class_name);
+        //Class.forName("Pqr");// class loading
+        //Class.forName("Pqr").getDeclaredConstructor().newInstance(); // class loading + instance creation
+
+        //tow ways to load the driver 
+        //1.
+        Class.forName("com.mysql.cj.jdbc.Driver"); // Preffered
+        //2.
+        DriverManager.registerDriver("com.mysql.cj.jdbc.Driver");
+        // both 1 & 2 are same thats because whenever you go to the driver class of mysql connecter in this you have a static block and this static block does the same thing that we are trying to do in 2nd type. so whenever we call the Class.forName() it loads the class and whenever it loads it will execute the static block . and whenever it executes the static block it will call the method register driver , That means we do not need to write the statement in 2nd type. Because we are writing Class.forName()..
+        
+        // So that means whenever we try to register the driver the Class.forName() is not the method which register the driver. Its actually the static block of driver class which register the driver.
+
+    }
+}
+
