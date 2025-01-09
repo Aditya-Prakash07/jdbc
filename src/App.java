@@ -210,46 +210,187 @@
 
 //DAO(data access object ) it is a designed layer it is always prefferd to write your data base related stuffs inside the dao layer only
 
+// ____________________________XXXXXXXXXXXXXXXXX not working XXXXXXXXXXXXXXX_________________________
+// import java.sql.*;
+
+// class Student{
+//     int rollno;
+//     String name;
+    
+// }
+// class StudentDao{
+//     Connection con = null;
+//     public void connect(){
+//         // String url = "jdbc:mysql://127.0.0.1:3306/aditya";
+//         // String username = "root";
+//         // String pass = "admin123";
+//         try{
+//             Class.forName("com.mysql.cj.jdbc.Driver");
+//             Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/aditya", "root", "admin123");
+//         }
+//         catch(Exception ex){
+//             System.out.println(ex);
+//         }
+       
+//     }
+//     public Student getStudent(int rollno){
+//         try{
+//             String query = "SELECT name FROM student WHERE rollno = "+rollno;
+//             Student s = new Student();
+//             s.rollno = rollno;
+           
+           
+           
+//             Statement st = con.createStatement();
+            
+//             ResultSet rs = st.executeQuery(query);
+//             rs.next();
+//             String name = rs.getString(1);
+//             s.name = name;
+//             return s;
+//         }
+//         catch(Exception ex){
+//             System.out.println(ex);
+//         }
+//         return null;
+//     }
+//     public void addStudent(Student s){
+//         String query = "insert into aditya.student (name) value (?)";
+//         PreparedStatement pst;
+//         try{
+
+//             pst = con.prepareStatement(query);
+//             pst.setString(2, s.name);
+//             pst.executeUpdate();
+//         }
+//         catch(Exception ex){
+//             System.out.println(ex);
+//         }
+//     }
+
+
+
+// }
+// public class App {
+
+//     public static void main(String[] args) throws Exception{
+//        StudentDao dao = new StudentDao();
+//        Student s1 = new Student();
+//        s1.name = "Nanhak";
+//        dao.connect();
+//        dao.addStudent(s1);
+//     //    Student s2 = dao.getStudent(13);
+//     //    System.out.println(s2.name);
+//     }
+// }
+
+
+
+
+// ____________________________XXXXXXXXXXXXXXXXX working XXXXXXXXXXXXXXX_________________________
 
 import java.sql.*;
 
-class Student{
-    int rollno;
-    String name;
-    
+// Class representing a Student entity
+class Student {
+    int rollno; // Roll number of the student
+    String name; // Name of the student
 }
-class StudentDao{
-    public Student getStudent(int rollno){
-        String url = "jdbc:mysql://127.0.0.1:3306/aditya";
-        String username = "root";
-        String pass = "admin123";
-        try{
-            String query = "SELECT name FROM student WHERE rollno = "+rollno;
+
+// Data Access Object (DAO) class for Student
+class StudentDao {
+    // Connection object for connecting to the database
+    private Connection con = null;
+
+    /**
+     * Establishes a connection to the database.
+     */
+    public void connect() {
+        try {
+            // Load the MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish a connection using DriverManager
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/aditya", "root", "admin123");
+            System.out.println("Connection established successfully!");
+        } catch (Exception ex) {
+            System.out.println("Connection failed: " + ex);
+        }
+    }
+
+    /**
+     * Retrieves a student record from the database based on the roll number.
+     *
+     * @param rollno The roll number of the student to retrieve.
+     * @return A Student object containing the retrieved data, or null if not found.
+     */
+    public Student getStudent(int rollno) {
+        try {
+            // SQL query to retrieve the student's name based on roll number
+            String query = "SELECT name FROM student WHERE rollno = " + rollno;
+
+            // Create a new Student object
             Student s = new Student();
             s.rollno = rollno;
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, username, pass);
-           
+
+            // Create a Statement object to execute the query
             Statement st = con.createStatement();
-            
+
+            // Execute the query and get the result set
             ResultSet rs = st.executeQuery(query);
-            rs.next();
-            String name = rs.getString(1);
-            s.name = name;
-            return s;
+
+            // Check if a record is found
+            if (rs.next()) {
+                s.name = rs.getString(1); // Retrieve the name from the first column
+                return s; // Return the populated Student object
+            } else {
+                System.out.println("No student found with rollno: " + rollno);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error fetching student: " + ex);
         }
-        catch(Exception ex){
-            System.out.println(ex);
+        return null; // Return null if no student is found or an error occurs
+    }
+
+    /**
+     * Adds a new student to the database.
+     *
+     * @param s The Student object containing the data to insert.
+     */
+    public void addStudent(Student s) {
+        // SQL query to insert a new student record
+        String query = "INSERT INTO student (name) VALUES (?)";
+        try (PreparedStatement pst = con.prepareStatement(query)) {
+            // Set the value for the first parameter
+            pst.setString(1, s.name);
+
+            // Execute the update
+            pst.executeUpdate();
+            System.out.println("Student added successfully!");
+        } catch (Exception ex) {
+            System.out.println("Error adding student: " + ex);
         }
-        return null;
     }
 }
-public class App {
 
-    public static void main(String[] args) throws Exception{
-       StudentDao dao = new StudentDao();
-       Student s1 = dao.getStudent(12);
-      // StudentDao.addStudent("Nanhak"); // Implement this by your self
-       System.out.println(s1.name);
+// Main class to test the DAO functionality
+public class App {
+    public static void main(String[] args) {
+        // Create an instance of the DAO
+        StudentDao dao = new StudentDao();
+
+        // Establish a connection to the database
+        dao.connect();
+
+        // Create a new student object and add it to the database
+        Student s1 = new Student();
+        s1.name = "Fannu";
+        dao.addStudent(s1);
+
+        // Retrieve a student by roll number and print their name
+        Student s2 = dao.getStudent(16);
+        if (s2 != null) {
+            System.out.println("Student Name: " + s2.name);
+        }
     }
 }
