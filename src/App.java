@@ -135,7 +135,7 @@ public class App {
         String url = "jdbc:mysql://127.0.0.1:3306/aditya";
         String username = "root";
         String pass = "admin123";
-        String name = "Gutka wala";
+        String name = "BAHU BHAIYA";
         String query = "INSERT INTO aditya.student (name) VALUES (?)";
 
         Class.forName("com.mysql.cj.jdbc.Driver");
