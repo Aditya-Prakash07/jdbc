@@ -210,7 +210,7 @@
 
 //DAO(data access object ) it is a designed layer it is always prefferd to write your data base related stuffs inside the dao layer only
 
-// ____________________________XXXXXXXXXXXXXXXXX not working XXXXXXXXXXXXXXX_________________________
+// ______________________________________________XXXXXXXXXXXXXXXXX not working XXXXXXXXXXXXXXX______________________________________________
 // import java.sql.*;
 
 // class Student{
@@ -287,7 +287,7 @@
 
 
 
-// ____________________________XXXXXXXXXXXXXXXXX working XXXXXXXXXXXXXXX_________________________
+// _______________________________________________XXXXXXXXXXXXXXXXX working XXXXXXXXXXXXXXX__________________________________________________
 
 import java.sql.*;
 
