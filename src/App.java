@@ -399,7 +399,7 @@ public class App {
       //  s1.name = "Abhishek";
        // dao.addStudent(s1);
 
-          dao.removeStudent(10); // implement this on your own 
+          dao.removeStudent(7); // implement this on your own 
 
         // Retrieve a student by roll number and print their name
         for(int i = 1; i<=17 ; i++){
@@ -410,3 +410,6 @@ public class App {
         }
     }
 }
+
+
+// FOR PLAYING WITH THIS JDBC CODE YOU NEED TO CREATE A DATABASE WITH NAME aditya AND A TABLE IN THE DATABASE WITH NAME student THE TABLE WILL CONSIST OF TWO COLUMNS 1ST int rollno, autoincremented , primary key     AND THE 2ND ONE IS name , varchar (255) , THAT'S IT AND YOU ARE GOOD TO GO
