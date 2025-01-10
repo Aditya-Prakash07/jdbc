@@ -371,7 +371,19 @@ class StudentDao {
             System.out.println("Error adding student: " + ex);
         }
     }
+
+    public void removeStudent(int rollno){
+        String query = "DELETE FROM aditya.student WHERE rollno = " + rollno;
+        try(Statement st = con.createStatement()){
+            int rowsAffected = st.executeUpdate(query);
+            System.out.println(rowsAffected + " row(s) deleted.");
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }
+
 
 // Main class to test the DAO functionality
 public class App {
@@ -386,6 +398,8 @@ public class App {
       //  Student s1 = new Student();
       //  s1.name = "Abhishek";
        // dao.addStudent(s1);
+
+          dao.removeStudent(10); // implement this on your own 
 
         // Retrieve a student by roll number and print their name
         for(int i = 1; i<=17 ; i++){
