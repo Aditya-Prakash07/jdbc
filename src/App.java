@@ -352,7 +352,7 @@ class StudentDao {
         return null; // Return null if no student is found or an error occurs
     }
 
-    /**
+    /*
      * Adds a new student to the database.
      *
      * @param s The Student object containing the data to insert.
@@ -383,14 +383,16 @@ public class App {
         dao.connect();
 
         // Create a new student object and add it to the database
-        Student s1 = new Student();
-        s1.name = "Fannu";
-        dao.addStudent(s1);
+      //  Student s1 = new Student();
+      //  s1.name = "Abhishek";
+       // dao.addStudent(s1);
 
         // Retrieve a student by roll number and print their name
-        Student s2 = dao.getStudent(16);
-        if (s2 != null) {
-            System.out.println("Student Name: " + s2.name);
+        for(int i = 1; i<=17 ; i++){
+            Student s2 = dao.getStudent(i);
+            if (s2 != null) {
+                System.out.println("Student Name: " + s2.name);
+            }
         }
     }
 }
