@@ -258,7 +258,34 @@ Entity Classes: Represent the database tables as Java objects (also known as POJ
 Database Connection Utility: Provides a way to establish and manage connections to the database.
 
 
+Draw Backs of JDBC----------------
+The drawbacks of JDBC (Java Database Connectivity) are as follows:
 
+1. Boilerplate Code
+JDBC requires extensive boilerplate code for database operations, such as opening connections, creating statements, handling result sets, and closing resources.
+This increases the risk of errors, such as forgetting to close resources.
+2. Poor Maintainability
+Managing SQL queries embedded in Java code can lead to poor maintainability.
+Changes in database schemas require updates in hardcoded queries, which are scattered across the codebase.
+3. Error Handling Complexity
+JDBC forces developers to handle exceptions explicitly for every database operation.
+This can lead to cluttered code and makes debugging more challenging.
+4. Lack of Abstraction
+JDBC does not provide abstractions for object-relational mapping (ORM).
+Developers must manually map database rows to Java objects and vice versa.
+5. Vendor Lock-In
+JDBC code can be tightly coupled with a specific database vendor's implementation.
+Switching databases may require significant code changes due to differences in SQL dialects.
+6. Performance Issues
+Without advanced techniques like connection pooling, JDBC applications may suffer from poor performance.
+Managing database connections manually can lead to resource contention.
+7. Limited Features for Advanced Operations
+JDBC lacks built-in support for features like caching, transaction management, and batch processing.
+Developers must implement these features manually or rely on external libraries.
+8. Concurrency Challenges
+JDBC requires explicit handling of concurrency issues, such as locking and transaction isolation.
+This increases the complexity of writing robust multi-threaded applications.
+For these reasons, frameworks like Hibernate, JPA (Java Persistence API), and Spring Data are often preferred for database interaction in Java applications. They provide higher-level abstractions and simplify development.
 
 
 
